@@ -23,49 +23,54 @@
         android:paddingLeft="30dp"
         android:paddingRight="30dp">
 
-        <TextView
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/label_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/text_email" />
-
-        <EditText
-            android:id="@+id/et_email"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:autofillHints="no"
-            android:ems="10"
-            android:inputType="textEmailAddress"
-            android:text=""
-            tools:ignore="LabelFor,TextFields" />
+            android:hint="@string/text_email"
+            app:boxStrokeColor="#03A9F4"
+            app:hintTextColor="#03A9F4">
 
-        <TextView
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/label_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/text_pw" />
-
-        <EditText
-            android:id="@+id/et_password"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:autofillHints="no"
-            android:ems="10"
-            android:inputType="textPassword"
-            tools:ignore="LabelFor" />
+            android:hint="@string/text_pw"
+            app:boxStrokeColor="#03A9F4"
+            app:hintTextColor="#03A9F4">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/btn_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/text_login" />
+            android:text="@string/text_login"
+            app:backgroundTint="#4CAF50" />
 
         <Button
             android:id="@+id/btn_join"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/text_join" />
+            android:onClick="clickJoin"
+            android:text="@string/text_join"
+            app:backgroundTint="#03A9F4" />
     </LinearLayout>
 </LinearLayout>
