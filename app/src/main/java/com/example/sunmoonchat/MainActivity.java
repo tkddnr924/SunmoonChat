@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,6 +19,11 @@ public class MainActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_main);
+    }
+
+    public void clickLogin (View view) {
+        String email = ((EditText) findViewById(R.id.et_email)).getText().toString();
+        String password = ((EditText) findViewById(R.id.et_password)).getText().toString();
     }
 
     public void clickJoin (View view) {
