@@ -10,7 +10,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.sunmoonchat.firebasehelper.FB_Helper;
-import com.google.firebase.auth.FirebaseUser;
 
 public class JoinActivity extends AppCompatActivity {
 
