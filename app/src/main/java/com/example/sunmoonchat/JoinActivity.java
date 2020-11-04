@@ -1,13 +1,12 @@
 package com.example.sunmoonchat;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 
-public class MainActivity extends AppCompatActivity {
+import androidx.appcompat.app.AppCompatActivity;
+
+public class JoinActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,13 +14,12 @@ public class MainActivity extends AppCompatActivity {
 
         // 안드로이드 상태 바 제거 (전체화면으로 보여줌)
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_join);
     }
 
-    public void clickJoin (View view) {
-        Intent intent = new Intent(this, JoinActivity.class);
-        startActivity(intent);
+    public void clickCancel (View view) {
+        finish();
     }
 }
