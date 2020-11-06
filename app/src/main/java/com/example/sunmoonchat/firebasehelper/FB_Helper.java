@@ -1,10 +1,10 @@
 package com.example.sunmoonchat.firebasehelper;
 
 import android.content.Context;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.example.sunmoonchat.Utils.Utils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -13,36 +13,33 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class FB_Helper {
-    private FirebaseAuth mAuth;
-    Context currentContext;
 
-    public FB_Helper (Context context) {
-        mAuth = FirebaseAuth.getInstance();
-        currentContext = context;
+    private static FirebaseAuth getFireBaseInstance () {
+        return FirebaseAuth.getInstance();
     }
 
-    public void join (String email, String password) {
+    public static void join (final Context context, String email, String password) {
+        FirebaseAuth mAuth = getFireBaseInstance();
         mAuth.signOut();
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(
-                                    currentContext, "회원가입 완료", Toast.LENGTH_LONG).show();
+                            Utils.viewToast(context, "회원가입 완료");
                         }
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(
-                                currentContext, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                        Utils.viewToast(context, e.getLocalizedMessage());
                     }
                 });
     }
 
-    public FirebaseUser getUser () {
+    public static FirebaseUser getUser () {
+        FirebaseAuth mAuth = getFireBaseInstance();
         return mAuth.getCurrentUser();
     }
 }
