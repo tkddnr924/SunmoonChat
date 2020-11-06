@@ -6,10 +6,15 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.sunmoonchat.Utils.Utils;
-import com.example.sunmoonchat.firebasehelper.FB_Helper;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class JoinActivity extends AppCompatActivity {
 
@@ -55,12 +60,27 @@ public class JoinActivity extends AppCompatActivity {
             return;
         }
 
-        FB_Helper.join(this, email, password);
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            goToMain();
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Utils.viewToast(JoinActivity.this, e.getLocalizedMessage());
+                    }
+                });
+    }
 
-        if (FB_Helper.getUser() != null) {
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-        }
+    public void goToMain () {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 
     public void clickCancel (View view) {
