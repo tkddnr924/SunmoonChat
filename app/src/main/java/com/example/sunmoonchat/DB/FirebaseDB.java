@@ -1,6 +1,5 @@
 package com.example.sunmoonchat.DB;
 
-
 import com.example.sunmoonchat.User.User;
 import com.example.sunmoonchat.Utils.Utils;
 import com.google.firebase.database.DatabaseReference;
@@ -15,7 +14,6 @@ public class FirebaseDB {
         DatabaseReference userRef = db.getReference("Users");
 
         User user = new User(email, name, nickname);
-
 
         String userMailId = Utils.emailToBase64(email);
         HashMap<String, Object> node = new HashMap<>();
