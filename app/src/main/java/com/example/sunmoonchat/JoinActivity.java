@@ -9,6 +9,7 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.sunmoonchat.DB.FirebaseDB;
 import com.example.sunmoonchat.Utils.Utils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -78,7 +79,14 @@ public class JoinActivity extends AppCompatActivity {
                 });
     }
 
-    public void goToMain () {
+    private void goToMain () {
+        String email = ((EditText) findViewById(R.id.et_join_email)).getText().toString();
+        String userName = ((EditText) findViewById(R.id.et_join_user_name)).getText().toString();
+        String userNickName = ((EditText) findViewById(R.id.et_join_nick_name))
+                .getText().toString();
+
+        FirebaseDB.saveUser(email, userName, userNickName);
+
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
