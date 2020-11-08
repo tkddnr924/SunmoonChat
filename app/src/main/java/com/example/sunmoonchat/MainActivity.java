@@ -35,7 +35,8 @@ public class MainActivity extends AppCompatActivity {
         user = mAuth.getCurrentUser();
 
         if (user != null) {
-            Utils.viewToast(this, "이미 로그인됨!");
+            Intent intent = new Intent(this, ChatListActivity.class);
+            startActivity(intent);
         }
     }
 

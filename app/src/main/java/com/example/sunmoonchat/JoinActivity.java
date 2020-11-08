@@ -87,7 +87,7 @@ public class JoinActivity extends AppCompatActivity {
 
         FirebaseDB.saveUser(email, userName, userNickName);
 
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, ChatListActivity.class);
         startActivity(intent);
     }
 
