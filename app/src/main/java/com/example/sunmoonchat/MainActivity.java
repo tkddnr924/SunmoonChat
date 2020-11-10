@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (user != null) {
             Intent intent = new Intent(this, ChatListActivity.class);
+            intent.putExtra("email", user.getEmail());
             startActivity(intent);
         }
     }

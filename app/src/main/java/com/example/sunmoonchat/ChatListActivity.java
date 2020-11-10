@@ -1,6 +1,8 @@
 package com.example.sunmoonchat;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
 
@@ -9,8 +11,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.sunmoonchat.DB.FirebaseDB;
 import com.example.sunmoonchat.User.User;
 import com.example.sunmoonchat.Utils.Utils;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class ChatListActivity extends AppCompatActivity {
     User user;
@@ -25,27 +25,28 @@ public class ChatListActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_chat_list);
 
-        FirebaseUser fbUser = FirebaseAuth.getInstance().getCurrentUser();
+        Intent intent = getIntent();
+        String email = intent.getStringExtra("email");
 
-        if (fbUser != null) {
-            String Email = fbUser.getEmail();
-            if (Email != null) {
-                String encodeEmail = Utils.emailToBase64(Email);
+        if (email != null) {
+            String encodeEmail = Utils.emailToBase64(email);
 
-                FirebaseDB.setUserInfo(encodeEmail, new FirebaseDB.OnSetUser() {
-                    @Override
-                    public void setUser (User res) { settingUser(res); }
-                    @Override
-                    public void setError (String msg) { settingError(msg); }
-                });
-            } else {
-                Utils.viewToast(this, "DB에 E-mail이 없습니다.");
-                finish();
-            }
+            FirebaseDB.setUserInfo(encodeEmail, new FirebaseDB.OnSetUser() {
+                @Override
+                public void setUser (User res) { settingUser(res); }
+                @Override
+                public void setError (String msg) { settingError(msg); }
+            });
         } else {
-            Utils.viewToast(this, "DB Error");
+            Utils.viewToast(this, "DB에 E-mail이 없습니다.");
             finish();
         }
+    }
+
+    public void clickChatting (View v) {
+        Intent intent = new Intent(this, UserListActivity.class);
+        intent.putExtra("email", user.email);
+        startActivity(intent);
     }
 
     public void settingUser (User res) {
