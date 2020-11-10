@@ -4,9 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class User {
-    String email;
-    String name;
-    String nickname;
+    public String email;
+    public String name;
+    public String nickname;
 
     public User () {}
 
@@ -18,10 +18,15 @@ public class User {
 
     public Map<String, Object> toMap () {
         HashMap<String, Object> result = new HashMap<>();
-        result.put("E-mail", email);
-        result.put("Name", name);
-        result.put("NickName", nickname);
+        result.put("email", email);
+        result.put("name", name);
+        result.put("nickname", nickname);
 
         return result;
+    }
+
+    @Override
+    public String toString () {
+        return String.format("User {email: %s, name: %s, nickname: %s}", email, name, nickname);
     }
 }
