@@ -37,12 +37,13 @@ public class FirebaseDB {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                callback.setError(error.getMessage());
             }
         });
     }
 
     public interface OnSetUser {
         void setUser (User user);
+        void setError (String msg);
     }
 }

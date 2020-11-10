@@ -34,13 +34,9 @@ public class ChatListActivity extends AppCompatActivity {
 
                 FirebaseDB.setUserInfo(encodeEmail, new FirebaseDB.OnSetUser() {
                     @Override
-                    public void setUser(User res) {
-                        user = res;
-                        TextView tv_nickname = findViewById(R.id.tv_chat_list_nick_name);
-                        tv_nickname.setText(res.nickname);
-
-                        // List View에 추가 해야함...
-                    }
+                    public void setUser (User res) { settingUser(res); }
+                    @Override
+                    public void setError (String msg) { settingError(msg); }
                 });
             } else {
                 Utils.viewToast(this, "DB에 E-mail이 없습니다.");
@@ -50,5 +46,17 @@ public class ChatListActivity extends AppCompatActivity {
             Utils.viewToast(this, "DB Error");
             finish();
         }
+    }
+
+    public void settingUser (User res) {
+        user = res;
+        TextView tv_nickname = findViewById(R.id.tv_chat_list_nick_name);
+        tv_nickname.setText(res.nickname);
+
+        // List View에 추가 해야함...
+    }
+
+    public void settingError (String msg) {
+        Utils.viewToast(this, msg);
     }
 }
