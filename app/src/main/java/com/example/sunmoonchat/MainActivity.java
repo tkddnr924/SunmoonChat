@@ -34,11 +34,7 @@ public class MainActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
 
-        if (user != null) {
-            Intent intent = new Intent(this, ChatListActivity.class);
-            intent.putExtra("email", user.getEmail());
-            startActivity(intent);
-        }
+        if (user != null) updateUI();
     }
 
     public void clickLogin (View view) {
@@ -61,9 +57,7 @@ public class MainActivity extends AppCompatActivity {
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            Utils.viewToast(MainActivity.this, "로그인 완료");
-                        }
+                        if (task.isSuccessful()) updateUI();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -72,6 +66,12 @@ public class MainActivity extends AppCompatActivity {
                         Utils.viewToast(MainActivity.this, e.getLocalizedMessage());
                     }
                 });
+    }
+
+    private void updateUI () {
+        Intent intent = new Intent(this, ChatListActivity.class);
+        intent.putExtra("email", user.getEmail());
+        startActivity(intent);
     }
 
     public void clickJoin (View view) {

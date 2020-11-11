@@ -66,9 +66,7 @@ public class JoinActivity extends AppCompatActivity {
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            goToMain();
-                        }
+                        if (task.isSuccessful()) goToMain();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

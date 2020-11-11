@@ -10,6 +10,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 public class FirebaseDB {
     private static String USERS_NODE = "Users";
 
@@ -42,8 +44,37 @@ public class FirebaseDB {
         });
     }
 
+    public static void getUserList (final OnGetUserList callback) {
+        FirebaseDatabase db = FirebaseDatabase.getInstance();
+        DatabaseReference userRef = db.getReference(USERS_NODE);
+
+        userRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ArrayList<User> users = new ArrayList<>();
+
+                for (DataSnapshot child : snapshot.getChildren()) {
+                    User user = child.getValue(User.class);
+                    users.add(user);
+                }
+
+                callback.getUserList(users);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                callback.setError(error.getMessage());
+            }
+        });
+    }
+
     public interface OnSetUser {
         void setUser (User user);
+        void setError (String msg);
+    }
+
+    public interface OnGetUserList {
+        void getUserList (ArrayList<User> users);
         void setError (String msg);
     }
 }
