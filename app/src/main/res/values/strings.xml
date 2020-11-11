@@ -7,6 +7,7 @@
     <string name="text_user_nick_name">별명</string>
     <string name="text_login">로그인</string>
     <string name="text_join">회원가입</string>
+    <string name="text_logout">로그아웃</string>
     <string name="text_cancel">취소</string>
     <string name="text_start_chat">채팅하기</string>
 </resources>

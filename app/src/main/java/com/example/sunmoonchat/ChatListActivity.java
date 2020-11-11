@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.sunmoonchat.DB.FirebaseDB;
 import com.example.sunmoonchat.User.User;
 import com.example.sunmoonchat.Utils.Utils;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class ChatListActivity extends AppCompatActivity {
     User user;
@@ -47,6 +48,11 @@ public class ChatListActivity extends AppCompatActivity {
         Intent intent = new Intent(this, UserListActivity.class);
         intent.putExtra("email", user.email);
         startActivity(intent);
+    }
+
+    public void clickSignOut (View v) {
+        FirebaseAuth.getInstance().signOut();
+        finish();
     }
 
     public void settingUser (User res) {

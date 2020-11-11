@@ -3,7 +3,6 @@ package com.example.sunmoonchat;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.WindowManager;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,7 +16,6 @@ import java.util.ArrayList;
 
 public class UserListActivity extends AppCompatActivity {
     public String email;
-    private ArrayList<User> users;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +31,6 @@ public class UserListActivity extends AppCompatActivity {
         email = intent.getStringExtra("email");
 
         if (email != null) {
-            String encodeEmail = Utils.emailToBase64(email);
-
             FirebaseDB.getUserList(new FirebaseDB.OnGetUserList() {
                 @Override
                 public void getUserList(ArrayList<User> users) { settingUsers(users); }
@@ -49,11 +45,9 @@ public class UserListActivity extends AppCompatActivity {
     }
 
     public void settingUsers(ArrayList<User> users) {
-        this.users = users;
-
         ListView lv_user_list = findViewById(R.id.lv_user_list);
 
-        UserListAdapter adapter = new UserListAdapter(this, users);
+        UserListAdapter adapter = new UserListAdapter(this, users, email);
         lv_user_list.setAdapter(adapter);
     }
 

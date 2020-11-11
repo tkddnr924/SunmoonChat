@@ -19,7 +19,6 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
-    private FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,9 +31,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mAuth = FirebaseAuth.getInstance();
-        user = mAuth.getCurrentUser();
+        FirebaseUser user = mAuth.getCurrentUser();
 
-        if (user != null) updateUI();
+        if (user != null) updateUI(user);
     }
 
     public void clickLogin (View view) {
@@ -57,7 +56,10 @@ public class MainActivity extends AppCompatActivity {
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) updateUI();
+                        if (task.isSuccessful()) {
+                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                            if (user != null) updateUI(user);
+                        }
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -68,10 +70,17 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
-    private void updateUI () {
+    private void updateUI (FirebaseUser user) {
         Intent intent = new Intent(this, ChatListActivity.class);
         intent.putExtra("email", user.getEmail());
         startActivity(intent);
+
+        clearEditText();
+    }
+
+    private void clearEditText () {
+        ((EditText) findViewById(R.id.et_email)).setText("");
+        ((EditText) findViewById(R.id.et_password)).setText("");
     }
 
     public void clickJoin (View view) {

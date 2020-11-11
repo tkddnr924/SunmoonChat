@@ -8,29 +8,27 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.sunmoonchat.R;
 import com.example.sunmoonchat.User.User;
-import com.example.sunmoonchat.UserListActivity;
 import com.example.sunmoonchat.Utils.Utils;
 
 import java.util.ArrayList;
 
 public class UserListAdapter extends BaseAdapter {
     private ArrayList<User> users = new ArrayList<>();
+    private String base64Email;
     private LayoutInflater inflater;
     private Context context;
 
     public UserListAdapter () {}
 
-    public UserListAdapter (Context context, ArrayList<User> users) {
+    public UserListAdapter (Context context, ArrayList<User> users, String myEmail) {
         this.users = users;
         this.context = context;
+        this.base64Email = Utils.emailToBase64(myEmail);
+
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
-
-    public void addItem (User user) { }
 
     @Override
     public int getCount () {
