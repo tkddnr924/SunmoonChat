@@ -44,15 +44,14 @@ public class UserListActivity extends AppCompatActivity {
         }
     }
 
-    public void settingUsers(ArrayList<User> users) {
+    public void settingUsers (ArrayList<User> users) {
         ListView lv_user_list = findViewById(R.id.lv_user_list);
 
         UserListAdapter adapter = new UserListAdapter(this, users, email);
         lv_user_list.setAdapter(adapter);
     }
 
-    public void settingError(String msg) {
+    public void settingError (String msg) {
         Utils.viewToast(this, msg);
     }
-
 }

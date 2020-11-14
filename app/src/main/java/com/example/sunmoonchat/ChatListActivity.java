@@ -4,14 +4,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.sunmoonchat.Adapter.RoomListAdapter;
+import com.example.sunmoonchat.Chat.ChattingRoom;
 import com.example.sunmoonchat.DB.FirebaseDB;
 import com.example.sunmoonchat.User.User;
 import com.example.sunmoonchat.Utils.Utils;
 import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.ArrayList;
 
 public class ChatListActivity extends AppCompatActivity {
     User user;
@@ -30,10 +35,10 @@ public class ChatListActivity extends AppCompatActivity {
         String email = intent.getStringExtra("email");
 
         if (email != null) {
-            String encodeEmail = Utils.emailToBase64(email);
+            String encodeEmail = Utils.toBase64(email);
 
-            FirebaseDB.setUserInfo(encodeEmail, new FirebaseDB.OnSetUser() {
-                @Override
+            FirebaseDB.getUserInfo(encodeEmail, new FirebaseDB.OnSetUser() {
+                    @Override
                 public void setUser (User res) { settingUser(res); }
                 @Override
                 public void setError (String msg) { settingError(msg); }
@@ -57,10 +62,28 @@ public class ChatListActivity extends AppCompatActivity {
 
     public void settingUser (User res) {
         user = res;
+        String emailID = Utils.toBase64(res.email);
         TextView tv_nickname = findViewById(R.id.tv_chat_list_nick_name);
         tv_nickname.setText(res.nickname);
 
-        // List View에 추가 해야함...
+        FirebaseDB.getChattingRoomList(emailID, new FirebaseDB.OnGetRoomList() {
+            @Override
+            public void getRoomList(ArrayList<ChattingRoom> rooms) {
+                settingRoomList(rooms);
+            }
+
+            @Override
+            public void setError(String msg) {
+                settingError(msg);
+            }
+        });
+    }
+
+    public void settingRoomList (ArrayList<ChattingRoom> rooms) {
+        ListView lv_chatting_room = findViewById(R.id.lv_chatting_room);
+
+        RoomListAdapter adapter = new RoomListAdapter(this, rooms, user);
+        lv_chatting_room.setAdapter(adapter);
     }
 
     public void settingError (String msg) {

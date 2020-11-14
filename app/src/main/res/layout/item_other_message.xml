@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tv_chat_item_other_nickname"
+        android:layout_width="87dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="20dp"
+        android:text="" />
+
+    <TextView
+        android:id="@+id/tv_chat_item_other_message"
+        android:layout_width="171dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_chat_item_other_nickname"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="11dp"
+        android:background="#00BCD4"
+        android:padding="10dp"
+        android:text="" />
+
+    <TextView
+        android:id="@+id/tv_chat_item_other_time"
+        android:layout_width="82dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="64dp"
+        android:layout_toEndOf="@+id/tv_chat_item_other_message"
+        android:text="" />
+</RelativeLayout>
