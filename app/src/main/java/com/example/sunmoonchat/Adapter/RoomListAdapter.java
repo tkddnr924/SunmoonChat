@@ -89,7 +89,11 @@ public class RoomListAdapter extends BaseAdapter {
         TextView tvNick = convertView.findViewById(R.id.tv_room_nickname);
         Button btnChat = convertView.findViewById(R.id.btn_room_chat);
 
-        tvNick.setText(receiver.nickname);
+        if (user.email.equals(receiver.email)) {
+            tvNick.setText("나와의 채팅");
+        } else {
+            tvNick.setText(receiver.nickname);
+        }
         btnChat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

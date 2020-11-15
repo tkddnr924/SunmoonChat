@@ -10,5 +10,6 @@
     <string name="text_logout">로그아웃</string>
     <string name="text_cancel">취소</string>
     <string name="text_start_chat">채팅하기</string>
+    <string name="text_new_chat">새로운 대화</string>
     <string name="text_send">보내기</string>
 </resources>
